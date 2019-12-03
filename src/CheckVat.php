@@ -18,7 +18,7 @@ class CheckVat
     /**
      * @var CheckVatSoapClient BMF session web service
      */
-    private static $client;
+    private $client;
 
     /**
      * Execute VAT check.
@@ -31,26 +31,28 @@ class CheckVat
      *
      * @return bool|CheckVatResponse
      */
-    public static function exec(string $countryCode, string $vat, bool $fullCheck = false)
+    public function exec(string $countryCode, string $vat, bool $fullCheck = false)
     {
-        self::getService()->setParams($countryCode, $vat);
+        $this->getService()->setParams($countryCode, $vat);
 
         if ($fullCheck === true) {
-            return self::getService()->checkFull();
+            return $this->getService()->checkFull();
         }
 
-        return self::getService()->check();
+        return $this->getService()->check();
     }
 
     /**
      * Get soap service.
+     *
+     * @return null|CheckVatSoapClient
      */
-    private static function getService(): CheckVatSoapClient
+    private function getService()
     {
-        if (self::$client === null) {
-            self::$client = new CheckVatSoapClient();
+        if ($this->client === null) {
+            $this->client = new CheckVatSoapClient();
         }
 
-        return self::$client;
+        return $this->client;
     }
 }
