@@ -20,10 +20,10 @@ composer require csoellinger/eu-check-vat-service
 use EuCheckVatService\CheckVat;
 
 // Full check (Return name and address if registered)
-print_r(CheckVat::exec('AT', 'U65923833', true));
+print_r((new CheckVat())->exec('AT', 'U65923833', true));
 
 // Simple Check (Return only true or false)
-var_dump(CheckVat::exec('AT', 'U65923833'));
+var_dump((new CheckVat())->exec('AT', 'U65923833'));
 ```
 
 ## Example
